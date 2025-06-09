@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { assets } from "../../assets/assets";
-import "./Navbar.css";
-import { useAppContext } from "../../context/AppContext";
+import { assets } from "../assets/assets";
+import "../css/Navbar.css";
+import { useAppContext } from "../context/AppContext";
 const Navbar = () => {
   const [open, setOpen] = React.useState(false);
   const {

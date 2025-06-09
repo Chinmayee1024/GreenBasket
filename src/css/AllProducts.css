@@ -20,7 +20,7 @@
 .underline {
   width: 4rem; /* w-16 */
   height: 2px; /* h-0.5 */
-  background-color: var(--primary-color, #00aeef); /* customize this */
+  background-color: var(--color-primary); /* customize this */
   border-radius: 9999px;
 }
 

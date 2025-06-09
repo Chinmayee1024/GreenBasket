@@ -1,9 +1,10 @@
+/* eslint-disable no-unused-vars */
 // src/components/Cart.jsx
 
 import { useEffect, useState } from "react";
 import { useAppContext } from "../context/AppContext";
 import { assets, dummyAddress } from "../assets/assets";
-import "./Cart.css";
+import "../css/Cart.css";
 
 const Cart = () => {
   const {
@@ -41,6 +42,7 @@ const Cart = () => {
     if (products.length > 0 && cartItems) {
       getCart();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [products, cartItems]);
 
   return products.length > 0 && cartItems ? (

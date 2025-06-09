@@ -1,6 +1,6 @@
 import React from "react";
-import { assets, features } from "../../assets/assets";
-import "./BottomBanner.css";
+import { assets, features } from "../assets/assets";
+import "../css/BottomBanner.css";
 
 const BottomBanner = () => {
   return (

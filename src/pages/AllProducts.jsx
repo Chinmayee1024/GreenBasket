@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAppContext } from "../context/AppContext";
-import ProductCard from "../components/BestSeller/ProductCard";
-import "./AllProducts.css"; // Importing the CSS file
+import ProductCard from "../components/ProductCard";
+import "../css/AllProducts.css"; // Importing the CSS file
 
 const AllProducts = () => {
   const { products, searchQuery } = useAppContext();

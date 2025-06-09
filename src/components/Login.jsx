@@ -1,6 +1,6 @@
 import React from "react";
-import { useAppContext } from "../../context/AppContext";
-import "./Login.css";
+import { useAppContext } from "../context/AppContext";
+import "../css/Login.css";
 
 const Login = () => {
   const [state, setState] = React.useState("login");

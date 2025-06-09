@@ -1,7 +1,7 @@
 import React from "react";
-import "./ProductCard.css";
-import { assets } from "../../assets/assets";
-import { useAppContext } from "../../context/AppContext";
+import "../css/ProductCard.css";
+import { assets } from "../assets/assets";
+import { useAppContext } from "../context/AppContext";
 
 const ProductCard = ({ product }) => {
   const { currency, addToCart, removeFromCart, cartItems, navigate } =
@@ -11,7 +11,9 @@ const ProductCard = ({ product }) => {
     product && (
       <div
         onClick={() => {
-          navigate(`/products/${product.category.toLowerCase()}/${product._id}`);
+          navigate(
+            `/products/${product.category.toLowerCase()}/${product._id}`
+          );
           window.scrollTo(0, 0);
         }}
         className="product-card"

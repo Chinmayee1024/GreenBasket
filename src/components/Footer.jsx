@@ -1,5 +1,5 @@
-import { assets, footerLinks } from "../../assets/assets";
-import "./Footer.css";
+import { assets, footerLinks } from "../assets/assets";
+import "../css/Footer.css";
 
 const Footer = () => {
   return (
