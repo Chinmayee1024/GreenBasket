@@ -43,9 +43,9 @@ const ProductCard = ({ product }) => {
           </div>
           <div className="product-footer">
             <p className="product-price">
-              {currency}${product.offerPrice}{" "}
+              {currency}{product.offerPrice}{" "}
               <span className="line-through-price">
-                {currency}${product.price}
+                {currency}{product.price}
               </span>
             </p>
             <div onClick={(e) => e.stopPropagation()} className="text-primary">

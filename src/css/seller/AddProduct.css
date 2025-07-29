@@ -1,0 +1,91 @@
+/* src/components/AddProduct/AddProduct.css */
+.add-product-container {
+  height: 95vh;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.product-form {
+  padding: 2rem;
+  max-width: 640px;
+  margin: auto;
+}
+
+@media (min-width: 768px) {
+  .product-form {
+    padding: 2rem;
+  }
+}
+@media (max-width: 768px) {
+  .product-form {
+    padding: 1rem;
+  }
+
+}
+
+
+
+.label {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.image-upload-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.upload-image {
+  max-width: 6rem;
+  cursor: pointer;
+  border: 1px dashed #ccc;
+  border-radius: 0.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-top: 1rem;
+}
+
+.form-input,
+.form-textarea,
+select {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgba(107, 114, 128, 0.4);
+  border-radius: 0.375rem;
+  outline: none;
+}
+
+.form-textarea {
+  resize: none;
+}
+
+.price-wrapper {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.small {
+  flex: 1;
+  min-width: 8rem;
+}
+
+.submit-btn {
+  margin-top: 1.5rem;
+  padding: 0.625rem 2rem;
+  background-color: #0f172a;
+  color: white;
+  font-weight: 500;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  border: none;
+}

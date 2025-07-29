@@ -1,7 +1,6 @@
 .bottom-banner-container {
   position: relative;
-  margin-top: 3rem; 
- 
+  margin-top: 3rem;
 }
 
 .banner-img {
@@ -38,27 +37,27 @@
 
 @media (min-width: 768px) {
   .banner-overlay {
-   align-items: flex-end;
-   justify-content: center;
-   padding-top: 3rem;
-   padding-right: 6rem;
-   transform: translateX(4rem);
-}
+    align-items: flex-end;
+    justify-content: center;
+    padding-top: 3rem;
+    padding-right: 6rem;
+    transform: translateX(4rem);
+  }
 }
 @media (min-width: 1044px) {
   .banner-overlay {
-   align-items: flex-end;
-   justify-content: center;
-   padding-top: 3rem;
-   padding-right: 14rem;
-   transform: translateX(4rem);
-}
+    align-items: flex-end;
+    justify-content: center;
+    padding-top: 3rem;
+    padding-right: 14rem;
+    transform: translateX(4rem);
+  }
 }
 
 .banner-title {
   font-size: 1.5rem;
   font-weight: 600;
-  color: var(--primary-color);
+  color: var(--color-primary);
   margin-bottom: 1.5rem;
   margin-top: 0.5rem;
 }

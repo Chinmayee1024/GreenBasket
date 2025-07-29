@@ -786,12 +786,12 @@ export const dummyAddress = [
   {
     _id: "67b5b9e54ea97f71bbc196a0",
     userId: "67b5880e4d09769c5ca61644",
-    firstName: "Great",
-    lastName: "Stack",
-    email: "user.greatstack@gmail.com",
+    firstName: "Chinmayee",
+    lastName: "Mohanty",
+    email: "chinmayee123@gmail.com",
     street: "Street 123",
-    city: "Main City",
-    state: "New State",
+    city: "Bhubaneswar",
+    state: "odisha",
     zipcode: 123456,
     country: "IN",
     phone: "1234567890",
@@ -803,6 +803,11 @@ export const dummyOrders = [
     _id: "67e2589a8f87e63366786400",
     userId: "67b5880e4d09769c5ca61644",
     items: [
+      {
+        product: dummyProducts[3],
+        quantity: 2,
+        _id: "67e2589a8f87e63366786401",
+      },
       {
         product: dummyProducts[3],
         quantity: 2,
@@ -828,6 +833,11 @@ export const dummyOrders = [
       },
       {
         product: dummyProducts[1],
+        quantity: 1,
+        _id: "67e258798f87e633667863f4",
+      },
+      {
+        product: dummyProducts[2],
         quantity: 1,
         _id: "67e258798f87e633667863f4",
       },

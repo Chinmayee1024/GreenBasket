@@ -61,7 +61,7 @@
   .product-price {
     font-size: 1.25rem;
     font-weight: 500;
-    color: var(--primary-color);
+    color: var(--color-primary);
   }
   
   .line-through-price {
