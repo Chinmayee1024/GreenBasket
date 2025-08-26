@@ -1,0 +1,116 @@
+/* SellerLayout.css */
+
+.seller-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background-color: white;
+  border-bottom: 1px solid #d1d5db;
+  flex-wrap: wrap; /* allow wrapping if needed on very small screens */
+  gap: 0.5rem;
+}
+
+.seller-logo {
+  cursor: pointer;
+  width: 8.5rem;
+}
+
+.seller-header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #2d3035;
+}
+
+.logout-button {
+  border: 1px solid var(--color-primary-dull);
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  padding: 0.25rem 1rem;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+/* Responsive tweaks */
+@media (max-width: 767px) {
+  .seller-logo {
+    width: 6.5rem;
+  }
+
+  .logout-button {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.75rem;
+  }
+
+  .seller-header-right p {
+    font-size: 0.85rem;
+  }
+  .sidebar-icon{
+    margin-right: 2rem;
+  }
+}
+
+/* Layout body */
+.seller-body {
+  display: flex;
+}
+
+.seller-sidebar {
+  width: 4rem;
+  border-right: 1px solid #d1d5db;
+  height: 95vh;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+
+}
+
+@media (min-width: 768px) {
+  .seller-sidebar {
+    width: 16rem;
+  }
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  gap: 0.75rem;
+  border-right: 4px solid rgb(199, 198, 198);
+  color: #f6f7f8;
+  /* transition: background 0.2s; */
+}
+
+.sidebar-link:hover {
+  background-color: #d4feeb;
+}
+
+.active-link {
+  /* background-color: rgba(0, 4, 11, 0.1); */
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  font-weight: 600;
+  background-color: #6be3ad;
+}
+
+.sidebar-icon {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.sidebar-label {
+  display: none;
+  color: #5d5c5c;
+}
+.sidebar-label:hover {
+  color: var(--color-primary-dull);
+  font-weight: 600;
+}
+
+@media (min-width: 768px) {
+  .sidebar-label {
+    display: block;
+    text-align: center;
+  }
+}

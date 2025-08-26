@@ -1,0 +1,31 @@
+/* App.css */
+
+.app-container {
+  padding-left: 1.5rem; /* px-6 */
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .app-container {
+    padding-left: 4rem; /* md:px-16 */
+    padding-right: 4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .app-container {
+    padding-left: 6rem; /* lg:px-24 */
+    padding-right: 6rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .app-container {
+    padding-left: 8rem; /* xl:px-32 */
+    padding-right: 8rem;
+  }
+}
+
+.no-padding {
+  padding: 0 !important;
+}

@@ -1,0 +1,21 @@
+
+<svg width="300" height="100" viewBox="0 0 300 100" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .basket { fill: #4CAF50; }
+    .handle { fill: none; stroke: #388E3C; stroke-width: 3; stroke-linecap: round; }
+    .leaf { fill: #81C784; }
+    .text { fill: #2E7D32; font-size: 80px; font-family: 'Segoe UI', sans-serif; font-weight: 600; }
+  </style>
+
+  <!-- Basket Base -->
+  <rect x="10" y="25" width="40" height="25" rx="5" ry="5" class="basket"/>
+
+  <!-- Handle -->
+  <path d="M15 25 Q30 5, 45 25" class="handle"/>
+
+  <!-- Leaf -->
+  <path d="M40 10 C45 10, 47 15, 42 20 C40 17, 38 15, 40 10 Z" class="leaf"/>
+
+  <!-- Text -->
+  <text x="60" y="47"  class="text">GreenBasket</text>
+</svg>

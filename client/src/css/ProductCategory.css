@@ -1,0 +1,95 @@
+.product-category-container {
+  margin-top: 2rem; /* mt-16 */
+  padding: 0 0.5rem;
+}
+
+.category-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: max-content;
+  margin-bottom: 2rem;
+}
+
+.category-title {
+  font-size: 1.5rem; /* text-2xl */
+  font-weight: 500; /* font-medium */
+  text-transform: uppercase;
+}
+
+.category-underline {
+  width: 4rem; /* w-16 */
+  height: 2px; /* h-0.5 */
+  background-color: var(--color-primary, #00aeef);
+  border-radius: 9999px;
+}
+
+/* Horizontal scroll container for mobile & tablet */
+.category-scroll {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 1rem 0;
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbar for better UX */
+.category-scroll::-webkit-scrollbar {
+  display: none;
+}
+.category-scroll {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Each product card should snap nicely */
+.category-scroll > * {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  width: 100%; /* fixed width for better horizontal scroll */
+}
+
+/* Grid layout for larger screens */
+@media (min-width: 768px) {
+  .category-scroll {
+    gap: 1.5rem;
+  }
+}
+
+/* @media (min-width: 1024px) {
+  .category-scroll {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    overflow-x: unset;
+    padding: 0;
+    width: 100%;
+  }
+
+  .category-scroll > * {
+    width: 100% !important;
+    max-width: 100%;
+    flex: none !important;
+    scroll-snap-align: none;
+  }
+} */
+
+@media (min-width: 1280px) {
+  .category-scroll {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.no-products {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+}
+
+.no-products-text {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--color-primary, #00aeef);
+}
