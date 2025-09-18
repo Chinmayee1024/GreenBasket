@@ -7,14 +7,27 @@ const addProduct = async (req, res) => {
     let productData = JSON.parse(req.body.productData);
     console.log(productData);
     const images = req.files;
+    console.log(images);
+    if (!images || images.length === 0) {
+      return res
+        .status(400)
+        .json({ success: false, message: "No images uploaded" });
+    }
     let imagesUrl = await Promise.all(
-      images.map(async (image) => {
-        let result = await cloudinary.uploader.upload(image.path, {
-          resource_type: "image",
+      images.map((image) => {
+        return new Promise((resolve, reject) => {
+          const stream = cloudinary.uploader.upload_stream(
+            { resource_type: "image" },
+            (error, result) => {
+              if (error) return reject(error);
+              resolve(result.secure_url);
+            }
+          );
+          stream.end(image.buffer); // ✅ send buffer instead of path
         });
-        return result.secure_url;
       })
     );
+
     await Product.create({
       ...productData,
       image: imagesUrl,

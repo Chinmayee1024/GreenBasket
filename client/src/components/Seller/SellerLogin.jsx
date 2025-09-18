@@ -1,8 +1,9 @@
-// /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { useAppContext } from "../../context/AppContext";
 import "../../css/seller/SellerLogin.css"; // Import external stylesheet
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const SellerLogin = () => {
   const { isSeller, setIsSeller, navigate } = useAppContext();
@@ -10,8 +11,21 @@ const SellerLogin = () => {
   const [password, setPassword] = useState("");
 
   const onSubmitHandler = async (event) => {
-    event.preventDefault();
-    setIsSeller(true);
+    try {
+      event.preventDefault();
+      const { data } = await axios.post("/seller/login", {
+        email,
+        password,
+      });
+      if (data.success) {
+        setIsSeller(true);
+        navigate("/seller");
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || error.message);
+    }
   };
 
   useEffect(() => {
@@ -28,8 +42,10 @@ const SellerLogin = () => {
             <span className="text-primary">Seller</span> Login
           </p>
           <div className="seller-input-group">
-            <p>Email</p>
+            <label htmlFor="email">Email</label>
             <input
+              id="email"
+              name="email"
               onChange={(e) => setEmail(e.target.value)}
               value={email}
               type="email"
@@ -39,8 +55,10 @@ const SellerLogin = () => {
             />
           </div>
           <div className="seller-input-group">
-            <p>Password</p>
+            <label htmlFor="password">Password</label>
             <input
+              id="password"
+              name="password"
               onChange={(e) => setPassword(e.target.value)}
               value={password}
               type="password"
@@ -49,7 +67,9 @@ const SellerLogin = () => {
               required
             />
           </div>
-          <button className="seller-login-button">Login</button>
+          <button type="submit" className="seller-login-button">
+            Login
+          </button>
         </div>
       </form>
     )
