@@ -4,7 +4,7 @@ import { useAppContext } from "../../context/AppContext";
 import "../../css/seller/ProductList.css"; // CSS import
 
 const ProductList = () => {
-  const { products, currency } = useAppContext();
+  const { products, currency,fetchProducts } = useAppContext();
 
   return (
     <div className="product-list-container">
