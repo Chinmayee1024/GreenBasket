@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-refresh/only-export-components */
 import { useContext, useEffect, useState } from "react";
 import { createContext } from "react";
@@ -22,6 +23,36 @@ export const AppContextProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [cartItems, setCartItems] = useState({});
   const [searchQuery, setSearchQuery] = useState({});
+
+  //fetch seller status
+  const fetchSeller = async () => {
+    try {
+      const { data } = await axios.get("/seller/is-auth");
+      if (data.success) {
+        setIsSeller(true);
+      } else {
+        setIsSeller(false);
+      }
+    } catch (error) {
+      setIsSeller(false);
+      toast.error(error.message);
+    }
+  };
+  //fetch user auth status , user data nad cart items
+  const fetchUser = async () => {
+    try {
+      const { data } = await axios.get("/user/is-auth");
+      if (data.success) {
+        setUser(data.user);
+        setCartItems(data.user.cartItems);
+      } else {
+        setUser(false);
+      }
+    } catch (error) {
+      setUser(null);
+    }
+  };
+
   //fetch all product
   const fetchProducts = async () => {
     try {
@@ -32,7 +63,7 @@ export const AppContextProvider = ({ children }) => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.response?.data?.message);
     }
   };
   // Add Product to cart
@@ -89,7 +120,8 @@ export const AppContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    // fetchSeller()
+    fetchUser();
+    fetchSeller();
     fetchProducts();
   }, []);
   const value = {

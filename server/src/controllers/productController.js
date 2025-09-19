@@ -92,7 +92,7 @@ const changeStock = async (req, res) => {
   try {
     const { id, inStock } = req.body;
     const product = await Product.findByIdAndUpdate(
-      { id },
+      id,
       { inStock },
       { new: true }
     );

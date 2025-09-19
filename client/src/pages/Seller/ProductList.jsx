@@ -1,10 +1,27 @@
-/* eslint-disable no-unused-vars */
+
 import React from "react";
 import { useAppContext } from "../../context/AppContext";
 import "../../css/seller/ProductList.css"; // CSS import
+import toast from "react-hot-toast";
 
 const ProductList = () => {
-  const { products, currency,fetchProducts } = useAppContext();
+  const { products, currency, fetchProducts, axios } = useAppContext();
+  const toggleStock = async (id, inStock) => {
+    try {
+      const { data } = await axios.post("/product/stock", {
+        id,
+        inStock,
+      });
+      if (data.success) {
+        fetchProducts();
+        toast.success(data.message);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message);
+    }
+  };
 
   return (
     <div className="product-list-container">
@@ -40,7 +57,14 @@ const ProductList = () => {
                   </td>
                   <td>
                     <label className="toggle-label">
-                      <input type="checkbox" className="toggle-input" />
+                      <input
+                        onClick={() =>
+                          toggleStock(product._id, !product.inStock)
+                        }
+                        checked={product.inStock}
+                        type="checkbox"
+                        className="toggle-input"
+                      />
                       <div className="toggle-track"></div>
                       <span className="toggle-dot"></span>
                     </label>

@@ -1,4 +1,3 @@
-
 // src/components/AddProduct/AddProduct.jsx
 import React, { useState } from "react";
 import { assets, categories } from "../../assets/assets";
@@ -14,7 +13,7 @@ const AddProduct = () => {
   const [price, setPrice] = useState("");
   const [offerPrice, setOfferPrice] = useState("");
 
-  const { axios} = useAppContext();
+  const { axios } = useAppContext();
 
   const onSubmitHandler = async (event) => {
     try {
@@ -31,7 +30,7 @@ const AddProduct = () => {
       for (let i = 0; i < files.length; i++) {
         formData.append("images", files[i]);
       }
-      const { data } = await axios.post("/product/add", formData); 
+      const { data } = await axios.post("/product/add", formData);
       if (data.success) {
         toast.success(data.message);
         setName("");
@@ -39,12 +38,12 @@ const AddProduct = () => {
         setCategory("");
         setPrice("");
         setOfferPrice("");
-        setFiles([]); 
+        setFiles([]);
       } else {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.response?.data?.message);
     }
   };
 
