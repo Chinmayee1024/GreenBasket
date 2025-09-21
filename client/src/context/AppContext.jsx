@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-refresh/only-export-components */
 import { useContext, useEffect, useState } from "react";
@@ -124,6 +125,22 @@ export const AppContextProvider = ({ children }) => {
     fetchSeller();
     fetchProducts();
   }, []);
+  //update database cart items
+  useEffect(() => {
+    const updateCart = async () => {
+      try {
+        const { data } = await axios.post("/cart/update", { cartItems });
+        if (!data.success) {
+          toast.error(data.message);
+        }
+      } catch (error) {
+        toast.error(error.response?.data?.message);
+      }
+    };
+    if (user) {
+      updateCart();
+    }
+  }, [cartItems]);
   const value = {
     navigate,
     user,
@@ -139,6 +156,7 @@ export const AppContextProvider = ({ children }) => {
     updateCartItem,
     removeFromCart,
     cartItems,
+    setCartItems,
     searchQuery,
     setSearchQuery,
     getCartCount,

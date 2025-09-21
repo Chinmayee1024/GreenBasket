@@ -3,7 +3,8 @@ const User = require("../models/user");
 //Update user CartData :/api/cart/update
 const updateCart = async (req, res) => {
   try {
-    const { userId, cartItems } = req.body;
+    const { cartItems } = req.body;
+    const userId = req.user.id;
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({

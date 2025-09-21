@@ -5,16 +5,17 @@ const Product = require("../models/product");
 
 const placeOrderCOD = async (req, res) => {
   try {
-    const { userId, items, address } = req.body;
+    const { items, address } = req.body;
+    const userId = req.user.id;
 
-    if (!items.length === 0 || !address) {
+    if (!items || !items.length === 0 || !address) {
       return res.status(400).json({
         success: false,
         message: "items, and address are required.",
       });
     }
     // Calculate Amount Using items
-    const amount = await items.reduce(async (acc, item) => {
+    let amount = await items.reduce(async (acc, item) => {
       const product = await Product.findById(item.product);
       return (await acc) + product.offerPrice * item.quantity;
     }, 0);
@@ -44,7 +45,7 @@ const placeOrderCOD = async (req, res) => {
 // Get Order By userId : /api/order/user
 const getUserOrders = async (req, res) => {
   try {
-    const { userId } = req.body;
+    const userId = req.user.id;
     const orders = await Order.find({
       userId,
       $or: [{ paymentType: "COD" }, { isPaid: true }],

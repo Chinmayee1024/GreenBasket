@@ -5,13 +5,24 @@ import React, { useEffect, useState } from "react";
 import { useAppContext } from "../../context/AppContext";
 import { assets, dummyOrders } from "../../assets/assets";
 import "../../css/seller/Orders.css";
+import toast from "react-hot-toast";
 
 const Orders = () => {
-  const { currency } = useAppContext();
+  const { currency, axios } = useAppContext();
   const [orders, setOrders] = useState([]);
 
   const fetchOrders = async () => {
-    setOrders(dummyOrders);
+    try {
+      const { data } = await axios.get("/order/seller");
+      if (data.success) {
+        setOrders(data.orders);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+      console.error(error.message);
+    }
   };
 
   useEffect(() => {
@@ -25,11 +36,7 @@ const Orders = () => {
         {orders.map((order, index) => (
           <div key={index} className="order-card">
             <div className="order-details">
-              <img
-                className="order-icon"
-                src={assets.box_icon}
-                alt="boxIcon"
-              />
+              <img className="order-icon" src={assets.box_icon} alt="boxIcon" />
               <div>
                 {order.items.map((item, idx) => (
                   <div key={idx} className="order-item">

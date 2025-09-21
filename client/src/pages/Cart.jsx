@@ -1,10 +1,12 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
+
 // src/components/Cart.jsx
 
 import { useEffect, useState } from "react";
 import { useAppContext } from "../context/AppContext";
-import { assets, dummyAddress } from "../assets/assets";
+import { assets } from "../assets/assets";
 import "../css/Cart.css";
+import toast from "react-hot-toast";
 
 const Cart = () => {
   const {
@@ -16,13 +18,16 @@ const Cart = () => {
     cartItems,
     getCartCount,
     getCartAmount,
+    axios,
+    user,
+    setCartItems,
   } = useAppContext();
 
   const [cartArray, setCartArray] = useState([]);
-  const [addresses, setAddresses] = useState(dummyAddress);
+  const [addresses, setAddresses] = useState([]);
   const [showAddress, setShowAddress] = useState(false);
-  const [selectedAddress, setSelectedAddress] = useState(dummyAddress[0]);
-  const [paymentOption, setPaymentOption] = useState("Cash On Delivery");
+  const [selectedAddress, setSelectedAddress] = useState(null);
+  const [paymentOption, setPaymentOption] = useState("COD");
 
   const getCart = () => {
     let tempArray = [];
@@ -34,16 +39,58 @@ const Cart = () => {
     setCartArray(tempArray);
   };
 
+  const getUserAddresses = async () => {
+    try {
+      const { data } = await axios.get("/address/get");
+      if (data.success) {
+        setAddresses(data.addresses);
+        if (data.addresses.length > 0) {
+          setSelectedAddress(data.addresses[0]);
+        } else {
+          toast.error(data.message);
+        }
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+
   const placeOrder = async () => {
-    // Add order placing logic here
+    try {
+      if (!selectedAddress) {
+        return toast.error("Please select an address");
+      }
+      if (paymentOption === "COD") {
+        const { data } = await axios.post("/order/cod", {
+          items: cartArray.map((item) => ({
+            product: item._id,
+            quantity: item.quantity,
+          })),
+          address: selectedAddress._id,
+        });
+        if (data.success) {
+          toast.success(data.message);
+          setCartItems({});
+          navigate("/my-orders");
+        } else {
+          toast.error(data.message);
+        }
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
   };
 
   useEffect(() => {
     if (products.length > 0 && cartItems) {
       getCart();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [products, cartItems]);
+  useEffect(() => {
+    if (user) {
+      getUserAddresses();
+    }
+  }, [user]);
 
   return products.length > 0 && cartItems ? (
     <div className="cart-container">
@@ -217,9 +264,7 @@ const Cart = () => {
         </div>
 
         <button onClick={placeOrder} className="place-order-btn">
-          {paymentOption === "Cash On Delivery"
-            ? "Place Order"
-            : "Proceed to Checkout"}
+          {paymentOption === "COD" ? "Place Order" : "Proceed to Checkout"}
         </button>
       </div>
     </div>

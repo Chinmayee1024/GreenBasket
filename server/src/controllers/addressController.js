@@ -4,7 +4,8 @@ const Address = require("../models/address");
 
 const addAddress = async (req, res) => {
   try {
-    const { address, userId } = req.body;
+    const { address } = req.body;
+    const userId = req.user.id;
     await Address.create({
       ...address,
       userId,
@@ -27,7 +28,8 @@ const addAddress = async (req, res) => {
 //Get user Address : /api/address/get
 const getAddress = async (req, res) => {
   try {
-    const { userId } = req.body;
+    const userId = req.user.id;
+
     const addresses = await Address.find({ userId });
     res.json({
       success: true,

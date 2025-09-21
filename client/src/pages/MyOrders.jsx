@@ -1,19 +1,30 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { useAppContext } from "../context/AppContext";
-import { dummyOrders } from "../assets/assets";
 import "../css/MyOrder.css"; // Import the CSS file here
+import toast from "react-hot-toast";
 
 const MyOrders = () => {
   const [myOrders, setMyOrders] = useState([]);
-  const { currency } = useAppContext();
+  const { currency, axios, user } = useAppContext();
 
   const fetchMyOrders = async () => {
-    setMyOrders(dummyOrders);
+    try {
+      const { data } = await axios.get("/order/user");
+      if (data.success) {
+        setMyOrders(data.orders);
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+      console.error(error.message);
+    }
   };
 
   useEffect(() => {
-    fetchMyOrders();
-  }, []);
+    if (user) {
+      fetchMyOrders();
+    }
+  }, [user]);
 
   return (
     <div className="my-orders-container">

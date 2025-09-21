@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from "react";
 import { assets } from "../assets/assets";
 import "../css/AddAddress.css"; // 👈 Import external CSS
+import { useAppContext } from "../context/AppContext";
+import toast from "react-hot-toast";
 
 const InputField = ({ type, placeholder, name, handleChange, address }) => (
   <input
@@ -15,6 +18,7 @@ const InputField = ({ type, placeholder, name, handleChange, address }) => (
 );
 
 const AddAddress = () => {
+  const { axios, user, navigate } = useAppContext();
   const [address, setAddress] = useState({
     firstName: "",
     lastName: "",
@@ -22,7 +26,7 @@ const AddAddress = () => {
     street: "",
     city: "",
     state: "",
-    zipcode: "",
+    zipCode: "",
     country: "",
     phone: "",
   });
@@ -34,8 +38,23 @@ const AddAddress = () => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    // your submit logic
+    try {
+      const { data } = await axios.post("/address/add", { address });
+      if (data.success) {
+        toast.success(data.message);
+        navigate("/cart");
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message);
+    }
   };
+  useEffect(() => {
+    if (!user) {
+      navigate("/cart");
+    }
+  }, []);
 
   return (
     <div className="address-container">
@@ -95,7 +114,7 @@ const AddAddress = () => {
               <InputField
                 handleChange={handleChange}
                 address={address}
-                name="zipcode"
+                name="zipCode"
                 type="number"
                 placeholder="Zip code"
               />
@@ -114,9 +133,7 @@ const AddAddress = () => {
               type="number"
               placeholder="Phone"
             />
-            <button className="submit-button">
-              Save address
-            </button>
+            <button className="submit-button">Save address</button>
           </form>
         </div>
         <img src={assets.add_address_iamge} alt="Add Address" />
