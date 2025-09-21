@@ -1,9 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // src/components/Orders/Orders.jsx
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
+
 import React, { useEffect, useState } from "react";
 import { useAppContext } from "../../context/AppContext";
-import { assets, dummyOrders } from "../../assets/assets";
+import { assets } from "../../assets/assets";
 import "../../css/seller/Orders.css";
 import toast from "react-hot-toast";
 
