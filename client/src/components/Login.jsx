@@ -13,11 +13,15 @@ const Login = () => {
   const onSubmitHandler = async (event) => {
     try {
       event.preventDefault();
-      const { data } = await axios.post(`/user/${state}`, {
-        name,
-        email,
-        password,
-      });
+      const { data } = await axios.post(
+        `/user/${state}`,
+        {
+          name,
+          email,
+          password,
+        },
+        { withCredentials: true }
+      );
       if (data.success) {
         navigate("/");
         setUser(data.user);
