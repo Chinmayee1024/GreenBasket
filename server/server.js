@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const connectDB = require("./src/configs/db");
 const connectCloudinary = require("./src/configs/cloudinary");
+const { stripeWebhooks } = require("./src/controllers/orderController");
 const app = express();
 dotenv.config();
 const port = process.env.PORT || 4000;
