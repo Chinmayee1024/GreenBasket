@@ -14,16 +14,25 @@ const allowedOrigins = [
   "http://localhost:5173",
   "https://greenbasket-chi.vercel.app",
 ];
-
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, origin);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+};
 app.post("/stripe", express.raw({ type: "application/json" }), stripeWebhooks);
 
 //middleware configuration
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: allowedOrigins, credentials: true }));
+app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => res.send("hello world"));
+app.get("/", (req, res) => res.send("hello Welcome to GreenBasket"));
 app.use("/api", require("./src/routes/userRoutes"));
 app.use("/api", require("./src/routes/sellerRoutes"));
 app.use("/api", require("./src/routes/productRoutes"));
