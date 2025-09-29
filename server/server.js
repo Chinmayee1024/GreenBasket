@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const connectDB = require("./src/configs/db");
@@ -24,7 +25,11 @@ const corsOptions = {
   },
   credentials: true,
 };
-app.post("/stripe", express.raw({ type: "application/json" }), stripeWebhooks);
+app.post(
+  "/stripe",
+  bodyParser.raw({ type: "application/json" }),
+  stripeWebhooks
+);
 
 //middleware configuration
 app.use(express.json());
