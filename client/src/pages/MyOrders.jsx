@@ -1,12 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { useAppContext } from "../context/AppContext";
-import "../css/MyOrder.css"; // Import the CSS file here
+import "../css/MyOrder.css";
 import toast from "react-hot-toast";
 
 const MyOrders = () => {
   const [myOrders, setMyOrders] = useState([]);
   const { currency, axios, user } = useAppContext();
+  const boxIcon =
+    "https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/e-commerce/boxIcon.svg";
 
   const fetchMyOrders = async () => {
     try {
@@ -15,7 +17,7 @@ const MyOrders = () => {
         setMyOrders(data.orders);
       }
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message || "Something went wrong");
       console.error(error.message);
     }
   };
@@ -27,58 +29,79 @@ const MyOrders = () => {
   }, [user]);
 
   return (
-    <div className="my-orders-container">
-      <div className="header">
-        <p className="header-title">My Order</p>
-        <div className="header-underline"></div>
-      </div>
+    <div className="orders-page">
+      <h2 className="orders-title">My Orders</h2>
+      <div className="orders-list">
+        {myOrders.map((order) => (
+          <div key={order._id} className="order-card">
+            <p className="order-id">OrderId : {order._id}</p>
 
-      {myOrders.map((order, index) => (
-        <div key={index} className="order-card">
-          <p className="order-summary">
-            <span>OrderId: {order._id}</span>
-            <span>Payment: {order.paymentType}</span>
-            <span>
-              Total Amount: {currency}
-              {order.amount}
-            </span>
-          </p>
-
-          {order.items.map((item, idx) => (
-            <div
-              key={idx}
-              className={`order-item ${
-                order.items.length !== idx + 1 ? "with-border" : ""
-              }`}
-            >
-              <div className="item-left">
-                <div className="item-image-wrapper">
-                  <img
-                    src={item.product.image[0]}
-                    alt=""
-                    className="item-image"
-                  />
-                </div>
-                <div className="item-details">
-                  <h2 className="item-name">{item.product.name}</h2>
-                  <p>Category: {item.product.category}</p>
-                </div>
+            <div className="order-main">
+              <div className="order-items">
+                {order.items.map((item) => (
+                  <div key={item._id || item.product._id} className="item">
+                    <img
+                      src={item.product.image?.[0] || boxIcon}
+                      alt="Product"
+                      className="item-icon"
+                    />
+                    <div>
+                      <p className="item-name">
+                        {item.product.name}
+                        <span
+                          className={`item-quantity ${
+                            item.quantity < 1 ? "hidden" : ""
+                          }`}
+                        >
+                          x {item.quantity}
+                        </span>
+                      </p>
+                      <p className="item-category">
+                        Category: {item.product.category}
+                      </p>
+                    </div>
+                  </div>
+                ))}
               </div>
 
-              <div className="item-meta">
-                <p>Quantity: {item.quantity || "1"}</p>
-                <p>Status: {order.status || "1"}</p>
-                <p>Date: {new Date(order.createdAt).toLocaleDateString()}</p>
+              <div className="order-address">
+                <p className="address-name">
+                  {order.address.firstName} {order.address.lastName}
+                </p>
+                <p className="address-details">
+                  {order.address.street}, {order.address.city},{" "}
+                  {order.address.state}, {order.address.zipcode},{" "}
+                  {order.address.country}
+                </p>
               </div>
 
-              <p className="item-amount">
-                Amount: {currency}
-                {item.product.offerPrice * item.quantity}
-              </p>
+              <div>
+                <p className="order-amount">
+                  Total Amount: {currency}
+                  {order.totalAmount || order.amount}
+                </p>
+                <p className="order-amount-green">
+                  Amount: {currency}
+                  {order.amount}
+                </p>
+              </div>
+
+              <div className="order-meta">
+                <p>Payment: {order.paymentType}</p>
+                <p>Status: Order Placed</p>
+                <p>
+                  Date:{" "}
+                  {new Date(order.createdAt).toLocaleDateString(undefined, {
+                    year: "numeric",
+                    month: "numeric",
+                    day: "numeric",
+                  })}
+                </p>
+              </div>
             </div>
-          ))}
-        </div>
-      ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
