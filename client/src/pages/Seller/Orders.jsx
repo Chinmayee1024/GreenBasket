@@ -70,7 +70,7 @@ const Orders = () => {
 
             <div className="order-meta">
               <p>Method: {order.paymentType}</p>
-              <p>Date: {new Date(order.createdA).toLocaleDateString()}</p>
+              <p>Date: {new Date(order.createdAt).toLocaleDateString()}</p>
               <p>Payment: {order.isPaid ? "Paid" : "Pending"}</p>
             </div>
           </div>
